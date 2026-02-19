@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xarcuteria La Moreneta · Barcelona</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #f5efe6;
+      --dark: #1a1008;
+      --brown: #6b3a1f;
+      --gold: #c8922a;
+      --red: #8b1a1a;
+      --light: #fdf8f2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 48px;
+      background: rgba(26,16,8,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200,146,42,0.25);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 1px;
+    }
+    .nav-logo span { color: var(--cream); font-weight: 400; }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul a {
+      color: var(--cream); text-decoration: none;
+      font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
+      opacity: 0.8; transition: opacity .2s, color .2s;
+    }
+    nav ul a:hover { opacity: 1; color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh; position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(26,16,8,0.55) 0%, rgba(26,16,8,0.3) 40%, rgba(26,16,8,0.75) 100%),
+        url('https://xarcuterialamoreneta.com/wp-content/uploads/2024/11/Foto-Moreneta-1-scaled.jpg') center/cover no-repeat;
+    }
+    .hero-content {
+      position: relative; text-align: center; padding: 0 24px;
+      max-width: 820px;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900; line-height: 1.05;
+      color: var(--cream);
+      text-shadow: 0 4px 30px rgba(0,0,0,0.6);
+      margin-bottom: 24px;
+    }
+    .hero-title em { color: var(--gold); font-style: normal; }
+    .hero-sub {
+      font-size: 1.15rem; font-weight: 300; line-height: 1.7;
+      color: rgba(245,239,230,0.85); margin-bottom: 44px;
+      max-width: 560px; margin-left: auto; margin-right: auto;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold); color: var(--dark);
+      padding: 16px 44px; font-size: 0.85rem;
+      letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 700; text-decoration: none;
+      transition: background .25s, transform .2s;
+    }
+    .btn-primary:hover { background: #e0a830; transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block; margin-left: 16px;
+      border: 1px solid rgba(245,239,230,0.5); color: var(--cream);
+      padding: 15px 36px; font-size: 0.85rem;
+      letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 400; text-decoration: none;
+      transition: border-color .25s, color .25s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .scroll-hint {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0.5; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+    }
+    .scroll-hint::after {
+      content: ''; display: block; width: 1px; height: 48px;
+      background: var(--cream); animation: scrollLine 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%,100%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--gold); color: var(--dark);
+      display: flex; justify-content: center; align-items: center;
+      gap: 60px; padding: 18px 48px;
+      font-size: 0.78rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      flex-wrap: wrap;
+    }
+    .strip span::before { content: '✦ '; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 48px; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--cream); margin-bottom: 24px;
+    }
+    .section-body {
+      font-size: 1.05rem; font-weight: 300; line-height: 1.8;
+      color: rgba(245,239,230,0.75); max-width: 520px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover;
+      display: block;
+    }
+    .about-badge {
+      position: absolute; bottom: -24px; right: -24px;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: var(--gold); color: var(--dark);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 900; line-height: 1;
+    }
+    .about-badge small { font-family: 'Lato', sans-serif; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+    .about-text { padding-left: 20px; }
+    .about-text .section-body { margin-bottom: 32px; }
+    .divider { width: 60px; height: 2px; background: var(--gold); margin: 28px 0; }
+
+    /* ── DESPENSA ── */
+    .despensa { background: #120c05; }
+    .despensa-inner { max-width: 1200px; margin: 0 auto; }
+    .despensa-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px; margin-top: 60px;
+    }
+    .despensa-item h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--gold); margin-bottom: 12px;
+    }
+    .despensa-item p {
+      font-size: 0.95rem; color: rgba(245,239,230,0.7); line-height: 1.6;
+    }
+
+    /* ── DAILY PLATES ── */
+    .daily { background: var(--brown); }
+    .daily-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .daily-img { position: relative; }
+    .daily-img img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .daily-tag {
+      position: absolute; top: 24px; left: 24px;
+      background: var(--gold); color: var(--dark);
+      padding: 8px 20px; font-size: 0.7rem; letter-spacing: 3px;
+      text-transform: uppercase; font-weight: 700;
+    }
+    .daily-text .section-title { color: var(--cream); }
+    .daily-text .section-body { color: rgba(245,239,230,0.85); margin-bottom: 36px; }
+    .daily-list { list-style: none; margin-bottom: 36px; }
+    .daily-list li {
+      padding: 12px 0; border-bottom: 1px solid rgba(245,239,230,0.15);
+      font-size: 0.95rem; color: rgba(245,239,230,0.8);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .daily-list li::before { content: '→'; color: var(--gold); font-weight: 700; }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      background:
+        linear-gradient(rgba(26,16,8,0.82), rgba(26,16,8,0.82)),
+        url('https://xarcuterialamoreneta.com/wp-content/uploads/2024/11/Foto-Moreneta-1-scaled.jpg') center/cover fixed;
+      text-align: center; padding: 120px 48px;
+    }
+    blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-weight: 400; font-style: italic;
+      color: var(--cream); max-width: 800px; margin: 0 auto 24px;
+      line-height: 1.4;
+    }
+    blockquote::before { content: '\201C'; color: var(--gold); font-size: 5rem; line-height: 0; vertical-align: -0.4em; margin-right: 8px; }
+    cite { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); }
+
+    /* ── VISIT ── */
+    .visit-section { background: var(--light); color: var(--dark); }
+    .visit-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .visit-section .section-label { color: var(--brown); }
+    .visit-section .section-title { color: var(--dark); }
+    .info-block { margin-bottom: 36px; }
+    .info-label {
+      font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--brown); font-weight: 700; margin-bottom: 8px;
+    }
+    .info-value {
+      font-size: 1.05rem; color: var(--dark); line-height: 1.6;
+    }
+    .info-value a { color: var(--brown); text-decoration: none; font-weight: 700; }
+    .info-value a:hover { text-decoration: underline; }
+    .map-wrap {
+      width: 100%; aspect-ratio: 4/3; overflow: hidden;
+      border: 3px solid var(--gold);
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+    .cta-big {
+      display: block; text-align: center;
+      background: var(--dark); color: var(--gold);
+      padding: 20px 48px; font-size: 0.85rem;
+      letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 700; text-decoration: none; margin-top: 32px;
+      transition: background .25s;
+    }
+    .cta-big:hover { background: var(--brown); color: var(--cream); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d0804; padding: 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 24px;
+      border-top: 1px solid rgba(200,146,42,0.2);
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--gold); font-weight: 700;
+    }
+    .footer-logo span { color: var(--cream); font-weight: 400; }
+    footer p { font-size: 0.8rem; color: rgba(245,239,230,0.4); }
+    .footer-ig a {
+      color: var(--gold); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+    }
+    .footer-ig a:hover { color: var(--cream); }
+
+    /* ── WHATSAPP FLOAT ── */
+    .whatsapp-float {
+      position: fixed; bottom: 32px; right: 32px; z-index: 999;
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.35));
+      transition: transform .25s;
+    }
+    .whatsapp-float:hover { transform: translateY(-4px); }
+    .whatsapp-bubble {
+      background: #25D366; border-radius: 50%;
+      width: 60px; height: 60px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .whatsapp-bubble svg { width: 32px; height: 32px; fill: #fff; }
+    .whatsapp-label {
+      background: var(--dark); color: var(--cream);
+      padding: 10px 18px; border-radius: 4px;
+      font-size: 0.8rem; letter-spacing: 1px; font-weight: 700;
+      white-space: nowrap; border: 1px solid rgba(200,146,42,0.3);
+      opacity: 0; transform: translateX(10px);
+      transition: opacity .3s, transform .3s;
+      pointer-events: none;
+    }
+    .whatsapp-float:hover .whatsapp-label { opacity: 1; transform: translateX(0); }
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+      50% { box-shadow: 0 0 0 12px rgba(37,211,102,0); }
+    }
+    .whatsapp-bubble { animation: waPulse 2.5s ease-in-out infinite; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav ul { gap: 20px; }
+      section { padding: 72px 24px; }
+      .about, .daily-inner, .visit-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-badge { right: 0; bottom: -16px; }
+      .despensa-grid { grid-template-columns: 1fr; }
+      .strip { gap: 24px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">La <span>Moreneta</span></div>
+  <ul>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#despensa">La Despensa</a></li>
+    <li><a href="#platos">Platos del día</a></li>
+    <li><a href="#visita">Visítanos</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Xarcuteria · Barcelona · Desde siempre</p>
+    <h1 class="hero-title">La tienda que<br/><em>Barcelona</em><br/>necesita</h1>
+    <p class="hero-sub">Sin rodeos. Sin artificios. Solo el mejor producto artesanal, la tradición de siempre y el trato de toda la vida.</p>
+    <a href="#visita" class="btn-primary">Ven a vernos</a>
+    <a href="#despensa" class="btn-outline">Nuestra Despensa</a>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <span>Producto artesanal</span>
+  <span>Platos preparados diarios</span>
+  <span>Tradición sin rodeos</span>
+  <span>C/ Tamarit, 109 · Barcelona</span>
+</div>
+
+<!-- ABOUT -->
+<section id="nosotros">
+  <div class="about">
+    <div class="about-img-wrap">
+      <img src="https://xarcuterialamoreneta.com/wp-content/uploads/2024/11/Foto-Moreneta-1-scaled.jpg" alt="Interior Xarcuteria La Moreneta" onerror="this.src='https://placehold.co/600x750/1a1008/c8922a?text=La+Moreneta'"/>
+      <div class="about-badge">
+        <span>BCN</span>
+        <small>Artesanal</small>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Quiénes somos</p>
+      <h2 class="section-title">Una charcutería de las de antes</h2>
+      <div class="divider"></div>
+      <p class="section-body">
+        En La Moreneta no encontrarás envases de plástico ni etiquetas de diseño. Encontrarás al carnicero que conoce cada pieza, el embutido que huele como debe oler y el consejo honesto de quien lleva toda la vida en esto.
+      </p>
+      <p class="section-body" style="margin-top:16px;">
+        Apostamos por el producto artesanal porque creemos que la calidad real no necesita marketing. Solo necesita que la pruebes.
+      </p>
+      <a href="#visita" class="btn-primary" style="margin-top:36px; display:inline-block;">Visita la tienda</a>
+    </div>
+  </div>
+</section>
+
+<!-- DESPENSA -->
+<section class="despensa" id="despensa">
+  <div class="despensa-inner">
+    <p class="section-label">Nuestra Selección</p>
+    <h2 class="section-title">Mucho más que una charcutería</h2>
+    <p class="section-body">Hemos seleccionado lo mejor de cada casa para que no te falte de nada en tu mesa.</p>
+
+    <div class="despensa-grid">
+      <div class="despensa-item">
+        <h4>Embutidos y Quesos</h4>
+        <p>Desde el jamón de bellota hasta el lomo, fuets artesanos y una selección de quesos nacionales e internacionales con carácter.</p>
+      </div>
+      <div class="despensa-item">
+        <h4>Pasta y Legumbres</h4>
+        <p>Legumbres a granel y pastas de calidad superior para tus recetas del día a día.</p>
+      </div>
+      <div class="despensa-item">
+        <h4>Pizzas Artesanales</h4>
+        <p>Hechas a mano, con ingredientes frescos y listas para hornear en casa. Sabor auténtico sin esfuerzo.</p>
+      </div>
+      <div class="despensa-item">
+        <h4>Vinos y Panes</h4>
+        <p>Vinos seleccionados para maridar y pan artesano horneado con paciencia.</p>
+      </div>
+      <div class="despensa-item">
+        <h4>Postres Artesanos</h4>
+        <p>El broche de oro dulce para tus comidas, elaborados con recetas tradicionales.</p>
+      </div>
+      <div class="despensa-item">
+        <h4>Platos del Día</h4>
+        <p>Cocina de mercado lista para llevar. Comida real, hecha hoy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY PLATES -->
+<section class="daily" id="platos">
+  <div class="daily-inner">
+    <div class="daily-img">
+      <img src="https://xarcuterialamoreneta.com/wp-content/uploads/2024/11/Foto-Moreneta-1-scaled.jpg" alt="Platos preparados diarios" onerror="this.src='https://placehold.co/600x600/6b3a1f/f5efe6?text=Platos+del+día'"/>
+      <div class="daily-tag">Cada día, nuevo menú</div>
+    </div>
+    <div class="daily-text">
+      <p class="section-label">Platos preparados</p>
+      <h2 class="section-title">Cocina de mercado, lista para llevar</h2>
+      <p class="section-body">
+        Cada mañana preparamos platos con los mejores ingredientes del día. Variedad real, sabor de verdad. Porque comer bien no debería ser complicado.
+      </p>
+      <ul class="daily-list">
+        <li>Elaboración diaria con producto fresco</li>
+        <li>Recetas tradicionales catalanas y de temporada</li>
+        <li>Perfectos para llevar a casa o a la oficina</li>
+        <li>Pregunta hoy qué hay — siempre hay sorpresa</li>
+      </ul>
+      <a href="tel:934233092" class="btn-primary">📞 Llama y reserva: 934 23 30 92</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <blockquote>
+    El buen producto no necesita explicación. Solo necesita que lo pruebes.
+  </blockquote>
+  <cite>— Xarcuteria La Moreneta, Barcelona</cite>
+</div>
+
+<!-- VISIT -->
+<section class="visit-section" id="visita">
+  <div class="visit-inner">
+    <div>
+      <p class="section-label">Encuéntranos</p>
+      <h2 class="section-title">Ven a vernos.<br/>Te esperamos.</h2>
+      <div class="divider" style="background:var(--brown);"></div>
+
+      <div class="info-block">
+        <p class="info-label">Dirección</p>
+        <p class="info-value">C/ Tamarit, 109<br/>08015 Barcelona</p>
+      </div>
+      <div class="info-block">
+        <p class="info-label">Teléfono</p>
+        <p class="info-value"><a href="tel:934233092">934 23 30 92</a></p>
+      </div>
+      <div class="info-block">
+        <p class="info-label">Horario</p>
+        <p class="info-value">Lunes a Sábado · 8:00 – 14:30 / 17:00 – 20:30<br/>Domingo cerrado</p>
+      </div>
+      <div class="info-block">
+        <p class="info-label">Instagram</p>
+        <p class="info-value"><a href="https://www.instagram.com/charcuteriaycarniceriamoreneta" target="_blank">@charcuteriaycarniceriamoreneta</a></p>
+      </div>
+
+      <a href="https://maps.google.com/?q=C/+Tamarit+109+Barcelona" target="_blank" class="cta-big">
+        Cómo llegar →
+      </a>
+    </div>
+    <div>
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.5!2d2.1580!3d41.3780!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a2f3b5c6d7e8%3A0x1234567890abcdef!2sCarrer+de+Tamarit%2C+109%2C+08015+Barcelona!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHATSAPP FLOAT -->
+<a class="whatsapp-float" href="https://wa.me/34673559150?text=Hola!%20Me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20vuestros%20productos." target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <span class="whatsapp-label">¡Escríbenos!</span>
+  <div class="whatsapp-bubble">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+      <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.469 2.027 7.77L0 32l8.437-2.01A15.938 15.938 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.771-1.854l-.485-.288-5.01 1.194 1.234-4.876-.317-.502A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.878c-.398-.199-2.355-1.162-2.72-1.294-.366-.133-.632-.199-.898.199-.266.398-1.031 1.294-1.264 1.56-.232.266-.465.299-.863.1-.398-.199-1.681-.619-3.203-1.977-1.184-1.056-1.983-2.36-2.215-2.758-.232-.398-.025-.613.174-.811.179-.178.398-.465.597-.698.199-.232.266-.398.398-.664.133-.266.066-.498-.033-.697-.1-.199-.898-2.165-1.23-2.963-.324-.778-.653-.673-.898-.685l-.765-.013c-.266 0-.697.1-1.063.498-.366.398-1.396 1.364-1.396 3.328s1.43 3.86 1.629 4.126c.199.266 2.815 4.298 6.821 6.027.953.411 1.697.657 2.277.841.957.304 1.828.261 2.516.158.767-.114 2.355-.963 2.688-1.893.332-.93.332-1.727.232-1.893-.099-.166-.365-.266-.763-.465z"/>
+    </svg>
+  </div>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">La <span>Moreneta</span></div>
+  <p>C/ Tamarit, 109 · 08015 Barcelona · 934 23 30 92</p>
+  <div class="footer-ig">
+    <a href="https://www.instagram.com/charcuteriaycarniceriamoreneta" target="_blank">Instagram →</a>
+  </div>
+</footer>
+
+</body>
+</html>
